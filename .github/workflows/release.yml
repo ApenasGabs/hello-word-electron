@@ -3,7 +3,7 @@ name: Build Electron App
 on:
   push:
     tags:
-      - "v*" # Roda quando um novo tag de versão é criado, ex: v1.0.0
+      - "v*"
 
 jobs:
   build:
@@ -27,4 +27,4 @@ jobs:
       - name: Build da aplicação
         run: npm run build:all
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GHP_TOKEN }}
