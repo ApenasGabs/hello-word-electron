@@ -1,0 +1,30 @@
+name: Build Electron App
+
+on:
+  push:
+    tags:
+      - "v*" # Roda quando um novo tag de versão é criado, ex: v1.0.0
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Build da aplicação
+        run: npm run build:all
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
